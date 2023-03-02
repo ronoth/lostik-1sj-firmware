@@ -25,7 +25,7 @@
 /* USER CODE END 0 */
 
 UART_HandleTypeDef husart1;
-DMA_HandleTypeDef hdma_uart1_tx;
+DMA_HandleTypeDef hdma_usart1_tx;
 
 /* UART1 init function */
 
@@ -87,21 +87,21 @@ void HAL_UART_MspInit(UART_HandleTypeDef *uartHandle)
 
     /* USART1 DMA Init */
     /* USART1_TX Init */
-    hdma_uart1_tx.Instance                 = USARTx_TX_DMA_CHANNEL;
-    hdma_uart1_tx.Init.Request             = USARTx_TX_DMA_REQUEST;
-    hdma_uart1_tx.Init.Direction = DMA_MEMORY_TO_PERIPH;
-    hdma_uart1_tx.Init.PeriphInc = DMA_PINC_DISABLE;
-    hdma_uart1_tx.Init.MemInc = DMA_MINC_ENABLE;
-    hdma_uart1_tx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
-    hdma_uart1_tx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
-    hdma_uart1_tx.Init.Mode = DMA_NORMAL;
-    hdma_uart1_tx.Init.Priority = DMA_PRIORITY_LOW;
-    if (HAL_DMA_Init(&hdma_uart1_tx) != HAL_OK)
+    hdma_usart1_tx.Instance                 = USARTx_TX_DMA_CHANNEL;
+    hdma_usart1_tx.Init.Request             = USARTx_TX_DMA_REQUEST;
+    hdma_usart1_tx.Init.Direction = DMA_MEMORY_TO_PERIPH;
+    hdma_usart1_tx.Init.PeriphInc = DMA_PINC_DISABLE;
+    hdma_usart1_tx.Init.MemInc = DMA_MINC_ENABLE;
+    hdma_usart1_tx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
+    hdma_usart1_tx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
+    hdma_usart1_tx.Init.Mode = DMA_NORMAL;
+    hdma_usart1_tx.Init.Priority = DMA_PRIORITY_LOW;
+    if (HAL_DMA_Init(&hdma_usart1_tx) != HAL_OK)
     {
       Error_Handler();
     }
 
-    __HAL_LINKDMA(uartHandle, hdmatx, hdma_uart1_tx);
+    __HAL_LINKDMA(uartHandle, hdmatx, hdma_usart1_tx);
 
     /* USART1 interrupt Init */
     HAL_NVIC_SetPriority(USART1_IRQn, USARTx_DMA_Priority, 0);

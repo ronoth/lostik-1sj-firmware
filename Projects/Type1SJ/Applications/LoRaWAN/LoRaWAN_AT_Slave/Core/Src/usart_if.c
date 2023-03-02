@@ -30,7 +30,7 @@
 /**
   * @brief DMA handle
   */
-extern DMA_HandleTypeDef hdma_uart1_tx;
+extern DMA_HandleTypeDef hdma_usart1_tx;
 
 /**
   * @brief UART handle
@@ -201,7 +201,7 @@ void vcom_Resume(void)
 
   /* USER CODE END vcom_Resume_1 */
   /*to re-enable lost DMA settings*/
-  if (HAL_DMA_Init(&hdma_uart1_tx) != HAL_OK)
+  if (HAL_DMA_Init(&hdma_usart1_tx) != HAL_OK)
   {
     Error_Handler();
   }
