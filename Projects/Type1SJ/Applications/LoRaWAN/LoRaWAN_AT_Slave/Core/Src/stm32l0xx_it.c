@@ -258,17 +258,17 @@ void DMA1_Channel4_5_6_7_IRQHandler(void)
 }
 
 /**
-  * @brief This function handles LPUART1 Interrupt.
+  * @brief This function handles USART1 Interrupt.
   */
-void LPUART1_IRQHandler(void)
+void USART1_IRQHandler(void)
 {
-  /* USER CODE BEGIN LPUART1_IRQn 0 */
+  /* USER CODE BEGIN USART1_IRQn 0 */
 
-  /* USER CODE END LPUART1_IRQn 0 */
+  /* USER CODE END USART1_IRQn 0 */
   HAL_UART_IRQHandler(&husart1);
-  /* USER CODE BEGIN LPUART1_IRQn 1 */
+  /* USER CODE BEGIN USART1_IRQn 1 */
 
-  /* USER CODE END LPUART1_IRQn 1 */
+  /* USER CODE END USART1_IRQn 1 */
 }
 
 void RTC_IRQHandler(void)

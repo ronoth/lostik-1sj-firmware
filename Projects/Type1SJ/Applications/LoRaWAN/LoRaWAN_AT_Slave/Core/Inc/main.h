@@ -90,8 +90,8 @@ void Error_Handler(void);
 #define USARTx_RX_GPIO_CLK_ENABLE()      __HAL_RCC_GPIOA_CLK_ENABLE()
 #define USARTx_TX_GPIO_CLK_ENABLE()      __HAL_RCC_GPIOA_CLK_ENABLE()
 
-#define USARTx_TX_AF                     GPIO_AF5_USART1
-#define USARTx_RX_AF                     GPIO_AF5_USART1
+#define USARTx_TX_AF                     GPIO_AF4_USART1
+#define USARTx_RX_AF                     GPIO_AF4_USART1
 
 /* USER CODE BEGIN Private defines */
 

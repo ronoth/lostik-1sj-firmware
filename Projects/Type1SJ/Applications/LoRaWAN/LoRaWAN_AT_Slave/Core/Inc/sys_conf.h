@@ -57,7 +57,7 @@ extern "C" {
 /**
   * @brief Enable four wires usable as probes (two of them PROBE1 and PROBE2 used by the MW)
   */
-#define PROBE_PINS_ENABLED          1
+#define PROBE_PINS_ENABLED          0
 
 /**
   * @brief Disable Low Power mode
