@@ -71,6 +71,9 @@ typedef struct {
   UTIL_ADV_TRACE_Status_t  (* DeInit)(void);                                                      /*!< Media Un-initialization.   */
   UTIL_ADV_TRACE_Status_t  (* StartRx)(void (*cb)(uint8_t *pdata, uint16_t size, uint8_t error)); /*!< Media to start RX process. */
   UTIL_ADV_TRACE_Status_t  (* Send)(uint8_t *pdata, uint16_t size);                               /*!< Media to send data.        */
+  UTIL_ADV_TRACE_Status_t  (* IoInit)(void);/*IO initialization*/
+  UTIL_ADV_TRACE_Status_t  (* IoDeInit)(void);/*IO Un-initialization*/
+
 }UTIL_ADV_TRACE_Driver_s;
 
 /**
@@ -109,6 +112,18 @@ UTIL_ADV_TRACE_Status_t UTIL_ADV_TRACE_Init(void);
  * @retval Status based on @ref UTIL_ADV_TRACE_Status_t
  */
 UTIL_ADV_TRACE_Status_t UTIL_ADV_TRACE_DeInit(void);
+
+/**
+ * @brief TraceIoInit Initializes Logging feature
+ * @retval Status based on @ref UTIL_ADV_TRACE_Status_t
+ */
+UTIL_ADV_TRACE_Status_t UTIL_ADV_TRACE_IoInit(void);
+
+/**
+ * @brief TraceIoDeInit module DeInitializes.
+ * @retval Status based on @ref UTIL_ADV_TRACE_Status_t
+ */
+UTIL_ADV_TRACE_Status_t UTIL_ADV_TRACE_IoDeInit(void);
 
 /**
  * @brief this function check if the buffer is empty.

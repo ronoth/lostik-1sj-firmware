@@ -185,6 +185,19 @@ UTIL_ADV_TRACE_Status_t UTIL_ADV_TRACE_DeInit(void)
   return UTIL_TraceDriver.DeInit();
 }
 
+//@Murata add for low power 
+UTIL_ADV_TRACE_Status_t UTIL_ADV_TRACE_IoInit(void)
+{
+  /* initialize the Low Level interface */
+  return UTIL_TraceDriver.IoInit();
+}
+
+UTIL_ADV_TRACE_Status_t UTIL_ADV_TRACE_IoDeInit(void)
+{
+  /* Un-initialize the Low Level interface */
+  return UTIL_TraceDriver.IoDeInit();
+}
+
 uint8_t UTIL_ADV_TRACE_IsBufferEmpty(void)
 {
   /* check of the buffer is empty */
