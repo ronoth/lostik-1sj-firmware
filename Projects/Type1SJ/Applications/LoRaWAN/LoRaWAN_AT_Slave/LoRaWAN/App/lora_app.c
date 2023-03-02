@@ -170,8 +170,7 @@ void LoRaWAN_Init(void)
   /* USER CODE BEGIN LoRaWAN_Init_1 */
 
   LED_Init(LED_GPIO_PORT,LED_BLUE);
-  LED_Init(LED_GPIO_PORT,LED_RED1);
-  LED_Init(LED_GPIO_PORT,LED_RED2);
+  LED_Init(LED_GPIO_PORT,LED_RED);
 
   /* Get LoRa APP version*/
   APP_LOG(TS_OFF, VLEVEL_M, "APP_VERSION:        V%X.%X.%X\r\n",
@@ -246,7 +245,7 @@ static void OnRxData(LmHandlerAppData_t *appData, LmHandlerRxParams_t *params)
 /* USER CODE BEGIN PrFD_LedEvents */
 static void OnTxTimerLedEvent(void *context)
 {
-  LED_Off(LED_GPIO_PORT,LED_RED2);
+  LED_Off(LED_GPIO_PORT,LED_RED);
 }
 
 static void OnRxTimerLedEvent(void *context)
@@ -256,7 +255,7 @@ static void OnRxTimerLedEvent(void *context)
 
 static void OnJoinTimerLedEvent(void *context)
 {
-  LED_Toggle(LED_GPIO_PORT,LED_RED1) ;
+  LED_Toggle(LED_GPIO_PORT,LED_RED) ;
 }
 
 /* USER CODE END PrFD_LedEvents */
@@ -269,7 +268,7 @@ static void OnTxData(LmHandlerTxParams_t *params)
     /* Process Tx event only if its a mcps response to prevent some internal events (mlme) */
     if (params->IsMcpsConfirm != 0)
     {
-      LED_On(LED_GPIO_PORT,LED_RED2) ;
+      LED_On(LED_GPIO_PORT,LED_RED) ;
       UTIL_TIMER_Start(&TxLedTimer);
     }
     AT_event_confirm(params);
@@ -286,7 +285,7 @@ static void OnJoinRequest(LmHandlerJoinParams_t *joinParams)
     {
       UTIL_TIMER_Stop(&JoinLedTimer);
 
-      LED_Off(LED_GPIO_PORT,LED_RED1) ;
+      LED_Off(LED_GPIO_PORT,LED_RED) ;
 
     }
     AT_event_join(joinParams);

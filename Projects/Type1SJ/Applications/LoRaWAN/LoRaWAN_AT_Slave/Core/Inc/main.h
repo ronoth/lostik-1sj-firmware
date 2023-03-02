@@ -61,7 +61,7 @@ void Error_Handler(void);
 #define RTC_N_PREDIV_S 10
 #define RTC_PREDIV_S ((1<<RTC_N_PREDIV_S)-1)
 #define RTC_PREDIV_A ((1<<(15-RTC_N_PREDIV_S))-1)
-#define LPUART_BAUDRATE 9600
+#define UART_BAUDRATE 9600
 
 /* Pin mapping */
 
@@ -82,16 +82,16 @@ void Error_Handler(void);
 #define USARTx_DMA_Priority 0
 
 
-#define USARTx_RX_Pin GPIO_PIN_3
+#define USARTx_RX_Pin GPIO_PIN_10
 #define USARTx_RX_GPIO_Port GPIOA
-#define USARTx_TX_Pin GPIO_PIN_2
+#define USARTx_TX_Pin GPIO_PIN_9
 #define USARTx_TX_GPIO_Port GPIOA
 
 #define USARTx_RX_GPIO_CLK_ENABLE()      __HAL_RCC_GPIOA_CLK_ENABLE()
 #define USARTx_TX_GPIO_CLK_ENABLE()      __HAL_RCC_GPIOA_CLK_ENABLE()
 
-#define USARTx_TX_AF                     GPIO_AF6_LPUART1
-#define USARTx_RX_AF                     GPIO_AF6_LPUART1
+#define USARTx_TX_AF                     GPIO_AF5_USART1
+#define USARTx_RX_AF                     GPIO_AF5_USART1
 
 /* USER CODE BEGIN Private defines */
 

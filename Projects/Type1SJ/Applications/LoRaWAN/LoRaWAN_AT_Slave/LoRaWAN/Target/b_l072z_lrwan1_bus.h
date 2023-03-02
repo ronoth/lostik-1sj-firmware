@@ -52,12 +52,11 @@ extern "C" {
 #define BUS_SPI2_MOSI_GPIO_CLK_ENABLE()  __HAL_RCC_GPIOB_CLK_ENABLE()
 #define BUS_SPI2_MISO_GPIO_CLK_ENABLE()  __HAL_RCC_GPIOB_CLK_ENABLE()
 
-#define LED_BLUE                           GPIO_PIN_5
+#define LED_BLUE                           GPIO_PIN_2
 #define LED_GPIO_PORT                      GPIOB
 #define LED_GPIO_CLK_ENABLE()              __HAL_RCC_GPIOB_CLK_ENABLE()  
 #define LED_GPIO_CLK_DISABLE()             __HAL_RCC_GPIOB_CLK_DISABLE()
-#define LED_RED1                           GPIO_PIN_3
-#define LED_RED2                           GPIO_PIN_4
+#define LED_RED                           GPIO_PIN_3
 #if (USE_HAL_I2C_REGISTER_CALLBACKS == 1)
 typedef struct
 {
