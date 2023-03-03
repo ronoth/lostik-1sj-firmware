@@ -61,7 +61,7 @@ void Error_Handler(void);
 #define RTC_N_PREDIV_S 10
 #define RTC_PREDIV_S ((1<<RTC_N_PREDIV_S)-1)
 #define RTC_PREDIV_A ((1<<(15-RTC_N_PREDIV_S))-1)
-#define UART_BAUDRATE 9600
+#define UART_BAUDRATE 115200
 
 /* Pin mapping */
 
@@ -70,13 +70,13 @@ void Error_Handler(void);
 #define DMAMUX_CLK_ENABLE()              __HAL_RCC_DMAMUX1_CLK_ENABLE()
 
 /* Definition for USARTx's DMA Request */
-#define USARTx_TX_DMA_REQUEST             DMA_REQUEST_5
+#define USARTx_TX_DMA_REQUEST             DMA_REQUEST_3
 /* Definition for USARTx's DMA */
-#define USARTx_TX_DMA_CHANNEL             DMA1_Channel7
+#define USARTx_TX_DMA_CHANNEL             DMA1_Channel2
 
 /* Definition for USARTx's NVIC */
-#define USARTx_DMA_TX_IRQn                DMA1_Channel4_5_6_7_IRQn
-#define USARTx_DMA_TX_IRQHandler          DMA1_Channel4_5_6_7_IRQHandler
+#define USARTx_DMA_TX_IRQn                DMA1_Channel2_3_IRQn
+#define USARTx_DMA_TX_IRQHandler          DMA1_Channel2_3_IRQHandler
 
 #define USARTx_Priority 0
 #define USARTx_DMA_Priority 0

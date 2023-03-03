@@ -25,9 +25,10 @@
 /* USER CODE END 0 */
 
 UART_HandleTypeDef husart1;
-DMA_HandleTypeDef hdma_usart1_tx;
+DMA_HandleTypeDef hdma_tx;
 
 /* UART1 init function */
+
 
 void MX_USART1_UART_Init(void)
 {
@@ -54,58 +55,86 @@ void HAL_UART_MspInit(UART_HandleTypeDef *uartHandle)
   RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {0};
   if (uartHandle->Instance == USART1)
   {
-    /** Initializes the peripherals clocks
-      */
-    PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_USART1;
-    PeriphClkInitStruct.Usart1ClockSelection = RCC_USART1CLKSOURCE_HSI;
-    if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK)
-    {
-      Error_Handler();
-    }
+	  /* USER CODE BEGIN USART1_MspInit 0 */
 
-    /*PSUART1 clock enable */
-    __HAL_RCC_USART1_CLK_ENABLE();
+	    /* USER CODE END USART1_MspInit 0 */
 
-    __HAL_RCC_GPIOA_CLK_ENABLE();
-    /**USART1 GPIO Configuration
-    PA10     ------> USART1_RX
-    PA9     ------> USART1_TX
-      */
-    GPIO_InitStruct.Pin = USARTx_RX_Pin;
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-    GPIO_InitStruct.Alternate = GPIO_AF4_USART1;
-    HAL_GPIO_Init(USARTx_RX_GPIO_Port, &GPIO_InitStruct);
+	    /* Enable peripherals and GPIO Clocks */
+	    /* Enable GPIO TX/RX clock */
+	    USARTx_TX_GPIO_CLK_ENABLE();
+	    USARTx_RX_GPIO_CLK_ENABLE();
 
-    GPIO_InitStruct.Pin = USARTx_TX_Pin;
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-    GPIO_InitStruct.Alternate = GPIO_AF4_USART1;
-    HAL_GPIO_Init(USARTx_TX_GPIO_Port, &GPIO_InitStruct);
+	    /* Enable USARTx clock */
+	    __USART1_CLK_ENABLE();
 
-    /* USART1 DMA Init */
-    /* USART1_TX Init */
-    hdma_usart1_tx.Instance                 = USARTx_TX_DMA_CHANNEL;
-    hdma_usart1_tx.Init.Request             = USARTx_TX_DMA_REQUEST;
-    hdma_usart1_tx.Init.Direction = DMA_MEMORY_TO_PERIPH;
-    hdma_usart1_tx.Init.PeriphInc = DMA_PINC_DISABLE;
-    hdma_usart1_tx.Init.MemInc = DMA_MINC_ENABLE;
-    hdma_usart1_tx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
-    hdma_usart1_tx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
-    hdma_usart1_tx.Init.Mode = DMA_NORMAL;
-    hdma_usart1_tx.Init.Priority = DMA_PRIORITY_LOW;
-    if (HAL_DMA_Init(&hdma_usart1_tx) != HAL_OK)
-    {
-      Error_Handler();
-    }
+	    /* Enable DMA clock */
+	    DMAx_CLK_ENABLE();
 
-    __HAL_LINKDMA(uartHandle, hdmatx, hdma_usart1_tx);
+	    /* USART1 clock enable */
+	    __HAL_RCC_USART1_CLK_ENABLE();
 
-    /* USART1 interrupt Init */
-    HAL_NVIC_SetPriority(USART1_IRQn, USARTx_DMA_Priority, 0);
-    HAL_NVIC_EnableIRQ(USART1_IRQn);
+	    /* Select SYSTEM clock for USART1 commuincation TX/RX */
+	    PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_USART1;
+	    PeriphClkInitStruct.Usart1ClockSelection = RCC_USART1CLKSOURCE_SYSCLK;
+	    if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK)
+	    {
+	      Error_Handler();
+	    }
+
+
+	    /**USART1 GPIO Configuration
+	    PA10     ------> USART1_RX
+	    PA9     ------> USART1_TX
+	      */
+	    GPIO_InitStruct.Pin = USARTx_TX_Pin;
+	    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+	    GPIO_InitStruct.Pull = GPIO_NOPULL;
+	    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+	    GPIO_InitStruct.Alternate = USARTx_TX_AF;
+	    HAL_GPIO_Init(USARTx_TX_GPIO_Port, &GPIO_InitStruct);
+
+	    GPIO_InitStruct.Pin = USARTx_RX_Pin;
+	    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+	    GPIO_InitStruct.Pull = GPIO_NOPULL;
+	    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+	    GPIO_InitStruct.Alternate = USARTx_RX_AF;
+	    HAL_GPIO_Init(USARTx_RX_GPIO_Port, &GPIO_InitStruct);
+
+
+	    /* USART1 DMA Init */
+	    /* USART1_TX Init */
+	    /* Configure the DMA handler for Transmission process */
+	    hdma_tx.Instance                 = USARTx_TX_DMA_CHANNEL;
+	    hdma_tx.Init.Request             = USARTx_TX_DMA_REQUEST;
+	    hdma_tx.Init.Direction           = DMA_MEMORY_TO_PERIPH;
+	    hdma_tx.Init.PeriphInc           = DMA_PINC_DISABLE;
+	    hdma_tx.Init.MemInc              = DMA_MINC_ENABLE;
+	    hdma_tx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
+	    hdma_tx.Init.MemDataAlignment    = DMA_MDATAALIGN_BYTE;
+	    hdma_tx.Init.Mode                = DMA_NORMAL;
+	    hdma_tx.Init.Priority            = DMA_PRIORITY_LOW;
+
+	    if (HAL_DMA_Init(&hdma_tx) != HAL_OK)
+	    {
+	      Error_Handler();
+	    }
+
+
+	    /* Associate the initialized DMA handle to the UART handle */
+	    __HAL_LINKDMA(uartHandle, hdmatx, hdma_tx);
+
+	    /* Configure the NVIC for DMA */
+	    /* NVIC configuration for DMA transfer complete interrupt (USART1_TX) */
+	    HAL_NVIC_SetPriority(USARTx_DMA_TX_IRQn, USARTx_Priority, 1);
+	    HAL_NVIC_EnableIRQ(USARTx_DMA_TX_IRQn);
+
+	    /* NVIC for USART, to catch the TX complete */
+	    HAL_NVIC_SetPriority(USART1_IRQn, USARTx_DMA_Priority, 1);
+	    HAL_NVIC_EnableIRQ(USART1_IRQn);
+
+	    /* USER CODE BEGIN USART1_MspInit 1 */
+
+	    /* USER CODE END USART1_MspInit 1 */
   }
 }
 

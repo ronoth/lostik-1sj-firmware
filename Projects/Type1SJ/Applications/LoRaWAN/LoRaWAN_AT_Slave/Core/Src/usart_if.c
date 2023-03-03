@@ -127,7 +127,8 @@ UTIL_ADV_TRACE_Status_t vcom_DeInit(void)
 
   /* ##-3- Disable the NVIC for DMA ########################################### */
   /* USER CODE BEGIN 1 */
-  HAL_NVIC_DisableIRQ(DMA1_Channel4_5_6_7_IRQn);
+  //HAL_NVIC_DisableIRQ(DMA1_Channel4_5_6_7_IRQn);
+  HAL_NVIC_DisableIRQ(DMA1_Channel2_3_IRQn);
 
   return UTIL_ADV_TRACE_OK;
   /* USER CODE END 1 */
